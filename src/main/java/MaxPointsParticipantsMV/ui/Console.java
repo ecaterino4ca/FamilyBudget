@@ -9,6 +9,7 @@ import MaxPointsParticipantsMV.exceptions.InvalidTypeException;
 import MaxPointsParticipantsMV.model.EntryBudget;
 import MaxPointsParticipantsMV.model.Member;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -69,8 +70,10 @@ public class Console {
                     entryBudgetController.addBudgetEntry(entryBudget);
                 } catch (InvalidTypeException | InvalidBudgetValueException e) {
                     System.out.println(e.getMessage());
-                }
-            }
+                } catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			if(command == 3) {
 				System.out.println("Enter the id of the member:");
                 String idS = scanner.nextLine();

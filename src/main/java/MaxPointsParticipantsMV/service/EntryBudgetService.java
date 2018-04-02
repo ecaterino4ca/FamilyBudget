@@ -6,6 +6,7 @@ import MaxPointsParticipantsMV.model.BudgetEntryValidator;
 import MaxPointsParticipantsMV.model.EntryBudget;
 import MaxPointsParticipantsMV.repository.EntryBudgetRepository;
 
+import java.io.IOException;
 import java.util.List;
 
 public class EntryBudgetService {
@@ -17,7 +18,7 @@ public class EntryBudgetService {
         this.entryValidator = entryValidator;
     }
 
-    public void addEntry(EntryBudget entryBudget) throws InvalidBudgetValueException, InvalidTypeException {
+    public void addEntry(EntryBudget entryBudget) throws InvalidBudgetValueException, InvalidTypeException, IOException {
         entryValidator.validate(entryBudget);
         entryBudgetRepository.addEntry(entryBudget);
     }

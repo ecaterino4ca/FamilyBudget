@@ -5,6 +5,7 @@ import MaxPointsParticipantsMV.exceptions.InvalidTypeException;
 import MaxPointsParticipantsMV.model.EntryBudget;
 import MaxPointsParticipantsMV.service.EntryBudgetService;
 
+import java.io.IOException;
 import java.util.List;
 
 public class EntryBudgetController {
@@ -15,7 +16,7 @@ public class EntryBudgetController {
         this.entryBudgetService = entryBudgetService;
     }
 
-    public void addBudgetEntry(EntryBudget entryBudget) throws InvalidTypeException, InvalidBudgetValueException {
+    public void addBudgetEntry(EntryBudget entryBudget) throws InvalidTypeException, InvalidBudgetValueException, IOException {
         entryBudgetService.addEntry(entryBudget);
     }
 

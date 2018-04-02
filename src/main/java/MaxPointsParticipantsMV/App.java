@@ -10,6 +10,8 @@ import MaxPointsParticipantsMV.service.EntryBudgetService;
 import MaxPointsParticipantsMV.service.MemberService;
 import MaxPointsParticipantsMV.ui.Console;
 
+import java.io.IOException;
+
 public class App {
 	public static void main(String[] args) {
 		
@@ -17,7 +19,12 @@ public class App {
 		MemberValidator memberValidator = new MemberValidator(memberRepository);
 		MemberService memberService = new MemberService(memberRepository, memberValidator);
 
-		EntryBudgetRepository entryBudgetRepository = new EntryBudgetRepository();
+		EntryBudgetRepository entryBudgetRepository = null;
+		try {
+			entryBudgetRepository = new EntryBudgetRepository("budgetF.txt");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		EntryBudgetService entryBudgetService = new EntryBudgetService(entryBudgetRepository, new BudgetEntryValidator());
 
 		MemberController memberController = new MemberController(memberService);

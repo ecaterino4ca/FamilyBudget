@@ -16,18 +16,13 @@ public class EntryBudgetRepository {
     private BudgetEntryValidator entryValidator;
     private String FILE_NAME = "budgetF.txt";
 
-    public EntryBudgetRepository(String FILE_NAME) {
+    public EntryBudgetRepository(String FILE_NAME) throws IOException {
         entryValidator = new BudgetEntryValidator();
         this.FILE_NAME = FILE_NAME;
         initializeRepository();
     }
 
-    public EntryBudgetRepository() {
-        entryValidator = new BudgetEntryValidator();
-        initializeRepository();
-    }
-
-    public void addEntry(EntryBudget entryBudget){
+    public void addEntry(EntryBudget entryBudget) throws IOException {
         butgetEntries.add(entryBudget);
         addToFile(entryBudget);
     }
@@ -38,7 +33,7 @@ public class EntryBudgetRepository {
                 .collect(Collectors.toList());
     }
 
-    private void initializeRepository(){
+    private void initializeRepository() throws IOException {
         try{
             FileReader fileReader = new FileReader(FILE_NAME);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -50,22 +45,19 @@ public class EntryBudgetRepository {
                 entryValidator.validate(entryBudget);
                 this.butgetEntries.add(entryBudget);
             }
-        } catch (IOException | InvalidBudgetValueException | InvalidTypeException e) {
+        } catch (InvalidBudgetValueException | InvalidTypeException e) {
             e.printStackTrace();
         }
     }
 
-    private void addToFile(EntryBudget entryBudget){
-        try {
-            FileWriter fileWriter = new FileWriter(FILE_NAME,true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.newLine();
-            bufferedWriter.write( entryBudget.getTypeEntry() + ";" + entryBudget.getValue().toString() + ";" +
-                    entryBudget.getIdMember().toString());
-            bufferedWriter.close();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+    private void addToFile(EntryBudget entryBudget) throws IOException {
+        FileWriter fileWriter = new FileWriter(FILE_NAME,true);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        bufferedWriter.newLine();
+        bufferedWriter.write( entryBudget.getTypeEntry() + ";" + entryBudget.getValue().toString() + ";" +
+                entryBudget.getIdMember().toString());
+        bufferedWriter.close();
+
     }
 
     public Integer size(){
